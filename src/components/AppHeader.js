@@ -28,8 +28,8 @@ class AppHeader extends Component {
           <Typography className={appHeader} variant="h6" color="inherit">
             AlbumsCollection App
           </Typography>
+          <SearchInput/>
         </Toolbar>
-        <SearchInput/>
       </AppBar>
     )
   }
