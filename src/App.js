@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import AppHeader from './components/AppHeader'
 import Typography from '@material-ui/core/Typography';
+import {connect} from "react-redux";
 
 const styles = theme => ({
   container: {
@@ -32,6 +33,9 @@ class App extends Component {
                 <Typography variant="h6" color="inherit">
                   Searching Results
                 </Typography>
+                <div>
+                  {this.props.albums.map(album => (<div key={album.id}>{album.title}<br/>{album.id}</div>))}
+                </div>
               </Paper>
             </Grid>
             <Grid item xs={4}>
@@ -48,5 +52,12 @@ class App extends Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    albums: state.albums
+  }
+}
 
-export default withStyles(styles)(App)
+export default connect(mapStateToProps)(withStyles(styles)(App))
+
+//export default withStyles(styles)(App)

@@ -3,7 +3,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import albumsProvider from '../providers'
+
+import { connect } from 'react-redux'
+import { loadAlbums } from '../actions';
 
 const styles = theme => ({
   search: {
@@ -40,6 +42,13 @@ const styles = theme => ({
 })
 
 class SearchInput extends Component {
+  componentDidMount() {
+    this.props.loadAlbums('Nevermind')
+      .then(response => {
+        console.log(this.props.albums)
+      })
+  }
+
   render() {
     const { search, searchIcon, inputRoot, inputInput } = this.props.classes
     return (
@@ -59,4 +68,11 @@ class SearchInput extends Component {
   }
 }
 
-export default withStyles(styles)(SearchInput)
+function mapStateToProps(state) {
+  return {
+    albums: state.albums
+  }
+}
+
+
+export default connect(mapStateToProps, { loadAlbums })(withStyles(styles)(SearchInput))
